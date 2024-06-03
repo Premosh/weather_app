@@ -23,8 +23,15 @@ class _SplashState extends State<Splash> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-              child: Image.asset('assets/images/wet-rain.gif'),
+              child: SizedBox(
+                height: 300,
+                width: 300,
+                  child: Image.asset('assets/images/wet-rain.gif')
+              ),
             ),
+          SizedBox(
+            height: 40,
+          ),
           CircularProgressIndicator(color: Colors.white,),
         ],
       ),
