@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/controller/global_controller.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class Header extends StatefulWidget {
   const Header({super.key});
@@ -12,6 +13,7 @@ class Header extends StatefulWidget {
 
 class _HeaderState extends State<Header> {
   String city = '';
+  String date=DateFormat("yMMMMd").format(DateTime.now());
   late GlobalController globalController;
 
   @override
@@ -49,7 +51,22 @@ class _HeaderState extends State<Header> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(city),
+        Container(
+            margin: const EdgeInsets.only(left: 20, right: 20),
+            alignment: Alignment.topLeft,
+            child: Text(
+              city,
+              style: TextStyle(fontSize: 35, height: 2),
+            )
+        ),
+        Container(
+            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            alignment: Alignment.topLeft,
+            child: Text(
+              date,
+              style: TextStyle(fontSize: 14, color: Colors.grey, height: 1.5),
+            )
+        ),
       ],
     );
   }

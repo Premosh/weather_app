@@ -1,3 +1,6 @@
+import 'package:flutter_project/api/fetch_weather.dart';
+import 'package:flutter_project/model/weather_current.dart';
+import 'package:flutter_project/model/weather_data.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +16,11 @@ class GlobalController extends GetxController {
   RxDouble getLatitude() => _latitude;
 
   RxDouble getLongitude() => _longitude;
+
+  final weatherData = WeatherData().obs;
+  WeatherData getWeatherData(){
+    return weatherData.value;
+  }
 
   @override
   void onInit() {
@@ -63,11 +71,15 @@ class GlobalController extends GetxController {
       // Update latitude and longitude
       _latitude.value = position.latitude;
       _longitude.value = position.longitude;
+      return FetchWeatherAPI()
+          .processData(position.latitude, position.longitude)
+          .then((value) {
+            weatherData.value=value;
+        _isLoading.value = false;
+      });
     } catch (e) {
       // Optionally, log the error or show a message to the user
       print("Error getting location: $e");
-    } finally {
-      _isLoading.value = false;
     }
   }
 }
